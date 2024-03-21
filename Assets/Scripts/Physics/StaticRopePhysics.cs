@@ -15,6 +15,8 @@ public class StaticRopePhysics : MonoBehaviour
     void FixedUpdate()
     {
         var fixedDeltaTime = Time.fixedDeltaTime;
+
+        transform.rotation = Quaternion.LookRotation(transform.forward, attachPoint.position - bodyAttachPoint.position);
         
         var futurePos = bodyAttachPoint.position + attachedBody.velocity * fixedDeltaTime;
         if (Vector3.Distance(futurePos, attachPoint.position) > ropeLength)
