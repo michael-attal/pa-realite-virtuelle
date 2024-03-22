@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.Events;
 
 public class ScoreManager
@@ -25,6 +26,7 @@ public class ScoreManager
         set
         {
             score = value;
+            Debug.Log(value);
             OnScoreUpdate.Invoke();
         }
     }
