@@ -4,7 +4,7 @@ public class TargetScript : MonoBehaviour
 {
     private const int PrecisionBonus = 500;
     private const int PowerBonus = 500;
-    private const int PerfectHitThreshhold = 900;
+    private const int PerfectHitThreshhold = 800;
     
     [SerializeField] private Transform idealHitPoint;
     [SerializeField] private ParticleSystem[] onHitParticleSystems;
