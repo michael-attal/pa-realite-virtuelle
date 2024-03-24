@@ -7,18 +7,20 @@ public class StaticRopePhysics : MonoBehaviour
     [SerializeField] private Rigidbody attachedBody;
 
     private float ropeLength;
-    
+
     private void Start()
-        => ropeLength = Vector3.Distance(attachPoint.position, bodyAttachPoint.position);
+    {
+        ropeLength = Vector3.Distance(attachPoint.position, bodyAttachPoint.position);
+    }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         var fixedDeltaTime = Time.fixedDeltaTime;
 
         var upwardsVector = attachPoint.position - bodyAttachPoint.position;
         transform.rotation = Quaternion.LookRotation(Vector3.Cross(upwardsVector, -transform.right), upwardsVector);
-        
+
         var futurePos = bodyAttachPoint.position + attachedBody.velocity * fixedDeltaTime;
         if (Vector3.Distance(futurePos, attachPoint.position) > ropeLength)
         {

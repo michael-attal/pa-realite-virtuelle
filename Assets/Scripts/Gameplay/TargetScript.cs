@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TargetScript : MonoBehaviour
@@ -5,12 +6,19 @@ public class TargetScript : MonoBehaviour
     private const int PrecisionBonus = 500;
     private const int PowerBonus = 500;
     private const int PerfectHitThreshhold = 800;
+    private SoundManager soundManager;
     
     [SerializeField] private Transform idealHitPoint;
     [SerializeField] private ParticleSystem[] onHitParticleSystems;
 
     [SerializeField] private float hitDistanceTolerance;
-    
+
+    private void Start()
+    {
+        GameObject soundManagerObject = GameObject.Find("SoundManager");
+        soundManager = soundManagerObject.GetComponent<SoundManager>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && other.TryGetComponent(out Rigidbody otherBody))
@@ -31,6 +39,7 @@ public class TargetScript : MonoBehaviour
                 foreach (var particles in onHitParticleSystems)
                     particles.Play();
 
+            soundManager.PlayPunchSound(totalPoints >= PerfectHitThreshhold ? PunchType.Perfect : PunchType.Normal);
             ScoreManager.Instance.Score += totalPoints;
         }
     }
