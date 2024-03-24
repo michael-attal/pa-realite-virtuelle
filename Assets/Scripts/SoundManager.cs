@@ -1,41 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioClip[] sounds;
     [SerializeField] private AudioSource ambientAudioSource;
     [SerializeField] private AudioSource punchAudioSource;
-    
-    public bool playAmbientSound = false;
-    public AmbientSounds currentAmbientSound = AmbientSounds.RockyTheme;
-    
-    void Start()
+    [SerializeField] private Toggle toggleAmbientSoundUI;
+    [SerializeField] private Toggle togglePunchSoundUI;
+
+    public bool enableAmbientSound = true;
+    public bool enablePunchSound = true;
+    public AmbientSounds currentAmbientSound = AmbientSounds.Sunset;
+
+    private void Start()
     {
-        PlayAmbientSound(currentAmbientSound, playAmbientSound);
-    }
-    
-    void Update()
-    {
-        // TODO: Manage sound on punch collision
-        if (false)
-        {
-            
-        }
+        toggleAmbientSoundUI.onValueChanged.AddListener(SwitchStatePlayAmbientSound);
+        togglePunchSoundUI.onValueChanged.AddListener(SwitchStatePlayPunchSound);
+        toggleAmbientSoundUI.isOn = enableAmbientSound;
+        togglePunchSoundUI.isOn = enablePunchSound;
     }
 
-    public void SwitchStatePlayAmbientSound()
+    public void SwitchStatePlayAmbientSound(bool isOn)
     {
-        playAmbientSound = !playAmbientSound;
-        PlayAmbientSound(currentAmbientSound, playAmbientSound);
+        enableAmbientSound = isOn;
+        toggleAmbientSoundUI.transform.Find("Image").gameObject.transform.Find("On Background").gameObject.SetActive(isOn);
+        PlayAmbientSound();
     }
-    
-    public void SwitchAmbientSound(int sound)
+
+    public void SwitchStatePlayPunchSound(bool isOn)
+    {
+        enablePunchSound = isOn;
+        togglePunchSoundUI.transform.Find("Image").gameObject.transform.Find("On Background").gameObject.SetActive(isOn);
+        PlayPunchSound();
+    }
+
+    public void ChangeAmbientSound(int sound)
     {
         currentAmbientSound = (AmbientSounds)sound;
-        PlayAmbientSound(currentAmbientSound, playAmbientSound);
     }
 
     public void UpdateVolume(float volume)
@@ -43,23 +47,60 @@ public class SoundManager : MonoBehaviour
         ambientAudioSource.volume = volume;
         punchAudioSource.volume = volume;
     }
-    
-    void PlayAmbientSound(AmbientSounds sound, bool playSound)
+
+    public void PlayAmbientSound()
     {
-        AudioClip clip = sounds[(int)sound];
+        var clip = sounds[(int)currentAmbientSound];
         ambientAudioSource.clip = clip;
         ambientAudioSource.loop = true;
-        if (playSound) {
+        if (enableAmbientSound)
+        {
             ambientAudioSource.Play();
-        } else {
+        }
+        else
+        {
             ambientAudioSource.Stop();
         }
     }
 
+    public void PlayPunchSound(PunchType punchType = PunchType.Normal)
+    {
+        if (enablePunchSound)
+        {
+            var punchSound = punchType switch
+            {
+                PunchType.Normal => (PunchSounds)Random.Range(0, 4),
+                PunchType.Perfect => PunchSounds.PunchPerfect,
+                PunchType.Miss => PunchSounds.PunchMiss,
+                _ => throw new ArgumentOutOfRangeException(nameof(punchType), punchType, null)
+            };
+
+            var clip = sounds[(int)punchSound + 2]; // NOTE: Punch sound starts at index 2 in the sounds array
+            punchAudioSource.clip = clip;
+            punchAudioSource.PlayOneShot(clip);
+        }
+    }
 }
 
 public enum AmbientSounds
 {
-    RockyTheme = 0,
-    Sunset = 1
+    Sunset = 0,
+    RockyTheme = 1
+}
+
+public enum PunchSounds
+{
+    PunchOne = 0,
+    PunchTwo = 1,
+    PunchThree = 2,
+    PunchFour = 3,
+    PunchPerfect = 4,
+    PunchMiss = 5
+}
+
+public enum PunchType
+{
+    Normal,
+    Perfect,
+    Miss
 }
