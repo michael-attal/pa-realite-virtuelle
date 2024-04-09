@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3862284, g: 0.17554098, b: 0.17185159, a: 1}
+  m_IndirectSpecularColor: {r: 0.3859161, g: 0.1753748, b: 0.17186975, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -851,31 +851,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skySpeed: 0.5
---- !u!1 &682598517 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8418182550498664977, guid: 8167a435d44814de68db2405ef190e86,
-    type: 3}
-  m_PrefabInstance: {fileID: 6083368842000572367}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &682598522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682598517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1891cc929e3442329ec3e1a1b6747b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dodgeSuccessPoint: 100
-  dodgeFailedPenalityPoint: 100
-  speedStickOut: 3
-  rangeX: 0.3
-  rangeY: 0.5
-  maximumTimeBeforeNextPunch: 3
-  woodenPlank: {fileID: 1520844824}
 --- !u!1001 &1094836760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -892,7 +867,7 @@ PrefabInstance:
     - target: {fileID: 907880545683215860, guid: 3e07eccb5e6f459d886de95044adb1d9,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 907880545683215860, guid: 3e07eccb5e6f459d886de95044adb1d9,
         type: 3}
@@ -917,7 +892,7 @@ PrefabInstance:
     - target: {fileID: 1565887663814566040, guid: 3e07eccb5e6f459d886de95044adb1d9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1565887663814566041, guid: 3e07eccb5e6f459d886de95044adb1d9,
         type: 3}
@@ -989,6 +964,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.125
       objectReference: {fileID: 0}
+    - target: {fileID: 3084300495437852339, guid: 3e07eccb5e6f459d886de95044adb1d9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -2612626239601607672, guid: 8e6690bbd280e434bb3be3b7b6ba5c6f,
+        type: 3}
     - target: {fileID: 3893451162647602913, guid: 3e07eccb5e6f459d886de95044adb1d9,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1094,6 +1075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7a3a1eb222734cdc929e89b398d576f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hand: 1
 --- !u!1 &1520844824 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2956837956049139563, guid: 717a2d1322b6040a7a3b4e332c1a19ce,
@@ -1106,6 +1088,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7931719971091753526}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1520844828
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520844824}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.30000007, y: 2.2, z: 1.4000003}
+  m_Center: {x: 0.00000047683716, y: 1.1, z: 0}
 --- !u!1001 &1731298970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1787,6 +1790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7a3a1eb222734cdc929e89b398d576f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hand: 0
 --- !u!1 &1979815215
 GameObject:
   m_ObjectHideFlags: 0
@@ -4297,6 +4301,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 439588100}
     m_Modifications:
+    - target: {fileID: 1185333261766239229, guid: 8167a435d44814de68db2405ef190e86,
+        type: 3}
+      propertyPath: woodenPlank
+      value: 
+      objectReference: {fileID: 1520844824}
     - target: {fileID: 1673940613490744529, guid: 8167a435d44814de68db2405ef190e86,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4305,7 +4314,7 @@ PrefabInstance:
     - target: {fileID: 1673940613490744529, guid: 8167a435d44814de68db2405ef190e86,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.85
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 1673940613490744529, guid: 8167a435d44814de68db2405ef190e86,
         type: 3}
@@ -4355,11 +4364,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8418182550498664977, guid: 8167a435d44814de68db2405ef190e86,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 682598522}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8167a435d44814de68db2405ef190e86, type: 3}
 --- !u!114 &6988727595312685937
 MonoBehaviour:
@@ -4413,7 +4418,7 @@ PrefabInstance:
     - target: {fileID: 854857948742848913, guid: 717a2d1322b6040a7a3b4e332c1a19ce,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 854857948742848913, guid: 717a2d1322b6040a7a3b4e332c1a19ce,
         type: 3}
@@ -4463,7 +4468,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2956837956049139563, guid: 717a2d1322b6040a7a3b4e332c1a19ce,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1520844828}
   m_SourcePrefab: {fileID: 100100000, guid: 717a2d1322b6040a7a3b4e332c1a19ce, type: 3}
 --- !u!224 &8180815008670202098
 RectTransform:
