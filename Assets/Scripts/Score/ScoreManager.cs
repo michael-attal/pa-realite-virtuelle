@@ -25,7 +25,7 @@ public class ScoreManager
         get => score;
         set
         {
-            score = value;
+            score = Mathf.Max(value, 0);
             Debug.Log(value);
             OnScoreUpdate.Invoke();
         }
